@@ -60,21 +60,15 @@ const cardAppender = async (selector) => {
   try {
     const data = res.data.articles
 
-    console.log(data)
-
     let articles = []
     for (const [, value] of Object.entries(data)) {
       value.forEach((article) => articles.push(article))
     }
 
-    console.log(articles)
-
-    // const articles = topics.map((topic) => {
-    //   const articlesDictionary = articlesData.data.articles
-    //   return articlesDictionary[topic]
-    // })
-
-    // console.log(articles)
+    const articleElements = articles.map((article) => Card(article))
+    articleElements.forEach((articleElement) => {
+      document.querySelector(selector).append(articleElement)
+    })
   } catch (err) {
     console.error(err)
   }
