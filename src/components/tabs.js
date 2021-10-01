@@ -16,18 +16,23 @@ const Tabs = (topics) => {
   // </div>
   //
 
+  // create parent topics div
   const topicsDiv = document.createElement('div')
   topicsDiv.classList.add('topics')
 
+  // Topic creator helper funciton, creates <div class="tab">{ textContent }</div>
   const Topic = (textContent) => {
+    // create element
     const topic = document.createElement('div')
 
+    // add class and attribute
     topic.classList.add('tab')
     topic.textContent = textContent
 
     return topic
   }
 
+  // iterate over topics, creating Topic element for each, appending to topicsDiv
   const topicElements = topics.map((topic) => Topic(topic))
   topicElements.forEach((topic) => topicsDiv.append(topic))
 
@@ -43,11 +48,12 @@ const tabsAppender = (selector) => {
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
 
+  // get from api and use response or handle error
   axios
     .get('http://localhost:5000/api/topics')
     .then((res) => {
+      // get topics from data, create and append Tabs element to selector
       const topics = res.data.topics
-
       document.querySelector(selector).append(Tabs(topics))
     })
     .catch((err) => console.error(err))

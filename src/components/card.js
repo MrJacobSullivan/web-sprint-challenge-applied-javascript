@@ -20,6 +20,7 @@ const Card = (article) => {
   // </div>
   //
 
+  // create all elements
   const card = document.createElement('div')
   const headline = document.createElement('div')
   const authorDiv = document.createElement('div')
@@ -27,19 +28,23 @@ const Card = (article) => {
   const img = document.createElement('img')
   const authorName = document.createElement('span')
 
+  // add all element classes
   card.classList.add('card')
   headline.classList.add('headline')
   authorDiv.classList.add('author')
   imgContainer.classList.add('img-container')
 
+  // add all element attributes
   headline.textContent = article.headline
   img.src = article.authorPhoto
-  authorName.textContent = article.authorName
+  authorName.textContent = `By ${article.authorName}`
 
+  // append elements in correct structure
   card.append(headline, authorDiv)
   authorDiv.append(imgContainer, authorName)
   imgContainer.append(img)
 
+  // add click event listener to entire card
   card.addEventListener('click', () => console.log(article.headline))
 
   return card
@@ -55,16 +60,20 @@ const cardAppender = async (selector) => {
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
 
+  // use async / await to get data from api
   const res = await axios.get('http://localhost:5000/api/articles')
 
+  // use response or handle error
   try {
     const data = res.data.articles
 
+    // iterates over values in data object, appends each article found in each value
     let articles = []
-    for (const [, value] of Object.entries(data)) {
+    for (const value of Object.values(data)) {
       value.forEach((article) => articles.push(article))
     }
 
+    // iterates over articles, creates Card element, appends to selector
     const articleElements = articles.map((article) => Card(article))
     articleElements.forEach((articleElement) => {
       document.querySelector(selector).append(articleElement)
