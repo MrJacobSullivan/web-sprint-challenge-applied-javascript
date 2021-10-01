@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -43,7 +45,7 @@ const Card = (article) => {
   return card
 }
 
-const cardAppender = (selector) => {
+const cardAppender = async (selector) => {
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -52,6 +54,30 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+
+  const res = await axios.get('http://localhost:5000/api/articles')
+
+  try {
+    const data = res.data.articles
+
+    console.log(data)
+
+    let articles = []
+    for (const [, value] of Object.entries(data)) {
+      value.forEach((article) => articles.push(article))
+    }
+
+    console.log(articles)
+
+    // const articles = topics.map((topic) => {
+    //   const articlesDictionary = articlesData.data.articles
+    //   return articlesDictionary[topic]
+    // })
+
+    // console.log(articles)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export { Card, cardAppender }
