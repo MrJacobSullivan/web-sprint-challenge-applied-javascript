@@ -33,6 +33,14 @@ const Card = (article) => {
   headline.textContent = article.headline
   img.src = article.authorPhoto
   authorName.textContent = article.authorName
+
+  card.append(headline, authorDiv)
+  authorDiv.append(imgContainer, authorName)
+  imgContainer.append(img)
+
+  card.addEventListener('click', () => console.log(article.headline))
+
+  return card
 }
 
 const cardAppender = (selector) => {
