@@ -67,11 +67,9 @@ const cardAppender = async (selector) => {
   try {
     const data = res.data.articles
 
-    // iterates over values in data object, appends each article found in each value
-    let articles = []
-    for (const value of Object.values(data)) {
-      value.forEach((article) => articles.push(article))
-    }
+    // iterates over values in data object, concats each article found in each value
+    const topics = Object.values(data).map((topic) => topic)
+    const articles = topics.reduce((output, topic) => output.concat(topic), [])
 
     // iterates over articles, creates Card element, appends to selector
     const articleElements = articles.map((article) => Card(article))
