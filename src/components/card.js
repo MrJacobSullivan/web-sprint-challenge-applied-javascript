@@ -24,6 +24,15 @@ const Card = (article) => {
   const imgContainer = document.createElement('div')
   const img = document.createElement('img')
   const authorName = document.createElement('span')
+
+  card.classList.add('card')
+  headline.classList.add('headline')
+  authorDiv.classList.add('author')
+  imgContainer.classList.add('img-container')
+
+  headline.textContent = article.headline
+  img.src = article.authorPhoto
+  authorName.textContent = article.authorName
 }
 
 const cardAppender = (selector) => {
