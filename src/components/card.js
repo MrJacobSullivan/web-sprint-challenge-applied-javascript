@@ -60,6 +60,8 @@ const cardAppender = async (selector) => {
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
 
+  const entry = document.querySelector(selector)
+
   // use async / await to get data from api
   const res = await axios.get('http://localhost:5000/api/articles')
 
@@ -68,13 +70,15 @@ const cardAppender = async (selector) => {
     const data = res.data.articles
 
     // iterates over values in data object, concats each article found in each value
-    const topics = Object.values(data).map((topic) => topic)
-    const articles = topics.reduce((output, topic) => output.concat(topic), [])
+    const topics = Object.values(data)
+    const articles = topics.reduce((output, topic) => {
+      return output.concat(topic)
+    }, [])
 
     // iterates over articles, creates Card element, appends to selector
     const articleElements = articles.map((article) => Card(article))
     articleElements.forEach((articleElement) => {
-      document.querySelector(selector).append(articleElement)
+      entry.append(articleElement)
     })
   } catch (err) {
     console.error(err)

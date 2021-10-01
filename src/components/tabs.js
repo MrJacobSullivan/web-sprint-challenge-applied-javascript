@@ -48,13 +48,15 @@ const tabsAppender = (selector) => {
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
 
+  const entry = document.querySelector(selector)
+
   // get from api and use response or handle error
   axios
     .get('http://localhost:5000/api/topics')
     .then((res) => {
       // get topics from data, create and append Tabs element to selector
       const topics = res.data.topics
-      document.querySelector(selector).append(Tabs(topics))
+      entry.append(Tabs(topics))
     })
     .catch((err) => console.error(err))
 }
