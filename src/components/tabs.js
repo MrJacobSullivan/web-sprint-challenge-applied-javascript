@@ -14,17 +14,22 @@ const Tabs = (topics) => {
   // </div>
   //
 
-  const topics = document.createElement('div')
-  topics.classList.add('topics')
+  const topicsDiv = document.createElement('div')
+  topicsDiv.classList.add('topics')
 
   const Topic = (textContent) => {
-    const topic = document.createElenent('div')
+    const topic = document.createElement('div')
 
     topic.classList.add('tab')
     topic.textContent = textContent
 
     return topic
   }
+
+  const topicElements = topics.map((topic) => Topic(topic))
+  topicElements.forEach((topic) => topicsDiv.append(topic))
+
+  return topicsDiv
 }
 
 const tabsAppender = (selector) => {
